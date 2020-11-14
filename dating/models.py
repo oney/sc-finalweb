@@ -1,4 +1,13 @@
 from django.db import models
+import os
+import uuid
+
+
+class UniqueImageField(models.ImageField):
+    def generate_filename(self, instance, filename):
+        _, ext = os.path.splitext(filename) 
+        name = f'{uuid.uuid4().hex}{ext}'
+        return super().generate_filename(instance, name)
 
 
 class User(models.Model):
@@ -13,6 +22,7 @@ class User(models.Model):
     gender = models.CharField(max_length=32, choices=genders, default='male')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    picture = UniqueImageField(upload_to='images', null=True)
 
     def __str__(self):
         return self.email

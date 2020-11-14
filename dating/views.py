@@ -76,7 +76,7 @@ def edit(request):
     
     user = models.User.objects.get(pk=request.session['user_id'])
     if request.method == "POST":
-        form = EditForm(request.POST, instance=user)
+        form = EditForm(request.POST, request.FILES, instance=user)
         message = "Some fields are invalid"
         if form.is_valid():
             form.save()

@@ -51,7 +51,7 @@ class RegisterForm(forms.Form):
 class EditForm(forms.ModelForm):
     class Meta:
         model = models.User
-        fields = ['name', 'gender']
+        fields = ['picture', 'name', 'gender']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'})

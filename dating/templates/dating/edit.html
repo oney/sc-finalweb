@@ -4,11 +4,25 @@
 {% block content %}
 <div class="container">
   <h1>Edit profile</h1>
-  <form action="/edit/" method="post">
+  <form action="/edit/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% if message %}
         <div class="alert alert-warning">{{ message }}</div>
     {% endif %}
+
+
+    <div class="form-group">
+      {{ form.picture.label_tag }}
+      {% if user.picture %}
+        <p><img src="{{ user.picture.url }}" style="width: 300px; max-width: 100%;" /></p>
+      {% endif %}
+      {{ form.picture }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_name">Email:</label>
+      <p>{{ user.email }}</p>
+    </div>
 
     <div class="form-group">
       {{ form.name.label_tag }}
