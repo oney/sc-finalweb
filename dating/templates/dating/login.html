@@ -1,0 +1,45 @@
+{% extends 'dating/base.html' %}
+{% load static %}
+{% block title %}login{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock %} {% block content %}
+<div class="container">
+  <h1>login</h1>
+  <form action="/login/" method="post">
+    {% csrf_token %}
+    {% if message %}
+        <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+    <div class="form-group">
+      <label for="email">Emaisl:</label>
+      <input
+        class="form-control"
+        aria-describedby="emailHelp"
+        type="text"
+        id="email"
+        name="email"
+        placeholder="email"
+        autofocus
+        required
+      />
+      <small id="emailHelp" class="form-text text-muted"
+        >We'll never share your email with anyone else.</small
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input
+        class="form-control"
+        type="password"
+        id="password"
+        placeholder="Password"
+        name="password"
+        required
+      />
+    </div>
+    <input class="btn btn-primary" type="submit" value="Login" />
+  </form>
+</div>
+{% endblock %}
