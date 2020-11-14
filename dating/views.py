@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.hashers import check_password, make_password
 from . import models
 from .forms import LoginForm, RegisterForm, EditForm, PasswordForm
+from django.views.generic import ListView
+
 
 def index(request):
     return render(request, 'dating/index.html')
@@ -107,3 +109,10 @@ def password(request):
         return render(request, 'dating/password.html', locals())
     form = PasswordForm()
     return render(request, 'dating/password.html', locals())
+
+
+class DiscoverView(ListView):
+    paginate_by = 5
+    model = models.User
+    template_name = 'dating/discover.html'
+    context_object_name = 'users'

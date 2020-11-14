@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^logout/', views.logout),
     url(r'^edit/', views.edit),
     url(r'^password/', views.password),
+    url(r'^discover/', views.DiscoverView.as_view(), name='discover'),
 ]
 
 if settings.DEBUG:

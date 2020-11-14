@@ -1,0 +1,63 @@
+{% extends 'dating/base.html' %}
+{% load static %}
+{% block title %}Discover{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/discover.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>Discover</h1>
+  
+  <div class="container">
+    <div class="card-group">
+
+      {% for user in users %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card mb-4">
+          <div class="square card-img-top">
+          {% if user.picture %}
+            <img class="img-fluid square-inner" src="{{ user.picture.url }}"/>
+          {% else %}
+            <img class="img-fluid square-inner" src="//drgsearch.com/wp-content/uploads/2020/01/no-photo.png" alt="Card image cap">
+          {% endif %}
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">{{ user.name }}</h4>
+            <p class="card-text">{{ user.gender }}</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo; first</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item disabled">
+        <span class="page-link">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+      </li>
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endblock %}
