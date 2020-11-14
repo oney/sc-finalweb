@@ -5,13 +5,11 @@ from . import models
 from .forms import LoginForm, RegisterForm
 
 def index(request):
-    template = 'index.html'
-    context = {}
-    return render(request, template, context)
+    return render(request, 'dating/index.html')
 
 def login(request):
     if request.session.get('is_login', None):
-        return redirect('/index')
+        return redirect('/')
 
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -25,7 +23,7 @@ def login(request):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.id
                     request.session['user_name'] = user.email
-                    return redirect('/index/')
+                    return redirect('/')
                 else:
                     message = "Password is wrong"
             except:
@@ -60,12 +58,12 @@ def register(request):
                 user.email = email
                 user.gender = gender
                 user.save()
-                return redirect('/login/')  # 自动跳转到登录页面
+                return redirect('/login/')
     form = RegisterForm()
     return render(request, 'dating/register.html', locals())
 
 def logout(request):
     if not request.session.get('is_login', None):
-        return redirect("/index/")
+        return redirect("/")
     request.session.flush()
-    return redirect('/index/')
+    return redirect('/')

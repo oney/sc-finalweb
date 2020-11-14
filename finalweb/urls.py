@@ -19,8 +19,8 @@ from django.conf.urls import url
 from dating import views
 
 urlpatterns = [
-    path('dating/', include('dating.urls')),
     path('admin/', admin.site.urls),
+    url(r'^$', views.index),
     url(r'^login/', views.login),
     url(r'^register/', views.register),
     url(r'^logout/', views.logout),
