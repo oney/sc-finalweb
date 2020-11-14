@@ -1,0 +1,21 @@
+{% extends 'dating/base.html' %}
+{% load static %}
+{% block title %}User{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/discover.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>{{ user.name }}</h1>
+  <p>
+
+    {% if user.picture %}
+    <img style="width: 600px; max-width: 100%;" src="{{ user.picture.url }}"/>
+  {% else %}
+    <img style="width: 300px; max-width: 100%;" src="//drgsearch.com/wp-content/uploads/2020/01/no-photo.png" alt="No picture">
+  {% endif %}
+  </p>
+  <p>{{ user.gender }}</p>
+  <p>Last active {{ user.last_active|timesince }} ago</p>
+</div>
+{% endblock %}

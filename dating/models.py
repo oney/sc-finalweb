@@ -23,6 +23,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     picture = UniqueImageField(upload_to='images', null=True)
+    last_active = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.email

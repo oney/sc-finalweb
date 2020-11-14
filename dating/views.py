@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from . import models
 from .forms import LoginForm, RegisterForm, EditForm, PasswordForm
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 
 
 def index(request):
@@ -112,7 +113,26 @@ def password(request):
 
 
 class DiscoverView(ListView):
-    paginate_by = 5
+    paginate_by = 6
     model = models.User
     template_name = 'dating/discover.html'
     context_object_name = 'users'
+
+    def render_to_response(self, context):
+        if not self.request.session.get('is_login', None):
+            return redirect("/")
+        return super(DiscoverView, self).render_to_response(context)
+
+class UserView(DetailView):
+    model = models.User
+    template_name = 'dating/user.html'
+    context_object_name = 'user'
+
+    def render_to_response(self, context):
+        if not self.request.session.get('is_login', None):
+            return redirect("/")
+        return super(UserView, self).render_to_response(context)
+
+    def get_object(self, **kwargs):
+        print(kwargs)
+        return models.User.objects.get(id=self.kwargs['id'])
