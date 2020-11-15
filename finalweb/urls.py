@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^password/', views.password),
     url(r'^discover/', views.DiscoverView.as_view(), name='discover'),
     path('user/<int:id>/', views.UserView.as_view(), name='user'),
-    path('chat/<int:id>/', views.chat),
+    path('chat/<int:id>/', views.chat, name='chat'),
 ]
 
 if settings.DEBUG:

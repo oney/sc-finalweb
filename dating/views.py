@@ -120,7 +120,10 @@ class DiscoverView(ListView):
     model = models.User
     template_name = 'dating/discover.html'
     context_object_name = 'users'
-    ordering = ['-last_active']
+
+    def get_queryset(self):
+        user_id = self.request.session['user_id']
+        return models.User.objects.filter(~Q(id=user_id)).order_by('-last_active')
 
     def render_to_response(self, context):
         if not self.request.session.get('is_login', None):
@@ -145,19 +148,21 @@ class UserView(DetailView):
 def chat(request, id):
     if not request.session.get('is_login', None):
         return redirect("/")
-    me = request.session['user_id']
-    if me == id:
+    me = models.User.objects.get(pk=request.session['user_id'])
+    user = models.User.objects.get(pk=id)
+    if me.id == user.id:
         return redirect("/discover")
 
-    user = models.User.objects.get(pk=id)
     jwt_token = jwt_encode({
-        "user_id": me,
+        "user_id": me.id,
         "exp": int(time.time() + 60*60*24*60)
         })
 
     try:
-        room = models.Room.objects.get(Q(user1=me, user2=id) | Q(user2=me, user1=id))
+        room = models.Room.objects.get(Q(user1=me, user2=user) | Q(user2=me, user1=user))
     except models.Room.DoesNotExist:
-        room = models.Room.objects.create(user1_id=me, user2_id=id)
+        room = models.Room.objects.create(user1=me, user2=user)
+    
+    messages = room.message_set.all().prefetch_related('user')
 
     return render(request, 'dating/chat.html', locals())
