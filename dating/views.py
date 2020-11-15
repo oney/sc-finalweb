@@ -117,6 +117,7 @@ class DiscoverView(ListView):
     model = models.User
     template_name = 'dating/discover.html'
     context_object_name = 'users'
+    ordering = ['-last_active']
 
     def render_to_response(self, context):
         if not self.request.session.get('is_login', None):

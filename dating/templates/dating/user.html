@@ -1,6 +1,6 @@
 {% extends 'dating/base.html' %}
 {% load static %}
-{% block title %}User{% endblock %}
+{% block title %}User {{ user.name }}{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/discover.css' %}" />
 {% endblock %}
