@@ -1,0 +1,5 @@
+.room-outer {
+  height: calc(100vh - 180px);
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}

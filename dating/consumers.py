@@ -1,10 +1,19 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+from urllib.parse import parse_qs
+from asgiref.sync import sync_to_async
+from .jwthelper import jwt_encode, jwt_decode
+from . import models
 
 
 class Chatting(AsyncWebsocketConsumer):
     async def connect(self):
-        self.room = "room" + str(self.scope['url_route']['kwargs']['room'])
+        q = parse_qs(self.scope['query_string'].decode())
+        info = jwt_decode(q['token'][0])
+
+        self.user = await sync_to_async(models.User.objects.get)(pk=info['user_id'])
+        self.room_id = str(self.scope['url_route']['kwargs']['room'])
+        self.room = "room" + self.room_id
 
         await self.channel_layer.group_add(
             self.room,
@@ -20,13 +29,30 @@ class Chatting(AsyncWebsocketConsumer):
         )
 
     async def receive(self, text_data):
+        data = json.loads(text_data)
+        message = await sync_to_async(models.Message.objects.create)(
+            room_id=self.room_id,
+            user=self.user,
+            content=data['content'])
+
+        payload = {
+            'message': {
+                'id': message.id,
+                'content': message.content,
+                'user': {
+                    'id': self.user.id,
+                    "name": self.user.name,
+                }
+            }
+        }
+
         await self.channel_layer.group_send(
             self.room,
             {
                 'type': 'chat_message',
-                'message': text_data
+                'payload': payload
             }
         )
 
     async def chat_message(self, event):
-        await self.send(text_data=event['message'])
+        await self.send(text_data=json.dumps(event['payload']))

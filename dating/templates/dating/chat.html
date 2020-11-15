@@ -1,22 +1,52 @@
 {% extends 'dating/base.html' %}
 {% load static %}
 {% block title %}home{% endblock %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+{% endblock %}
 {% block content %}
 <div class="container">
-  <h1>home</h1>
+  <h1>Chat with <a href="{% url 'user' id=user.id %}">{{ user.name }}</a></h1>
+  <div class="room-outer">
+    <ul class="list-group" id="room">
+      <li class="list-group-item">Cras justo odio</li>
+      <li class="list-group-item">Cras justo odio</li>
+      <li class="list-group-item">Cras justo odio</li>
+    </ul>
+  </div>
+  <input type="text" class="form-control" id="input" placeholder="Type messages...">
 </div>
 <script type="text/javascript">
-var chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/44/');
+var room = document.getElementById("room");
+var input = document.getElementById("input");
+
+
+var chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/{{ room.id }}/?token={{ jwt_token }}');
 
 chatSocket.onmessage = function (e) {
-  console.log("bbb", e);
+  // console.log("bbb", e);
   var data = JSON.parse(e.data);
   console.log("bbb", data);
+  var message = data.message;
+
+  var li = document.createElement("li");
+  li.classList = "list-group-item";
+  li.appendChild(document.createTextNode(message.user.name + ": " + message.content)); 
+  room.appendChild(li);
 };
 
 chatSocket.onclose = function (e) {
-    console.error('Chat socket closed unexpectedly');
+  console.error('Chat socket closed unexpectedly');
 };
+
+input.onkeyup = function(event) {
+  if (event.keyCode === 13 && input.value) {
+    // console.log("yooo", input.value);
+    chatSocket.send(JSON.stringify({
+      'content': input.value
+    }));
+    input.value = "";
+  }
+}
 </script>
 {% endblock %}
