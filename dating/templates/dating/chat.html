@@ -1,0 +1,22 @@
+{% extends 'dating/base.html' %}
+{% load static %}
+{% block title %}home{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>home</h1>
+</div>
+<script type="text/javascript">
+var chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/44/');
+
+chatSocket.onmessage = function (e) {
+  console.log("bbb", e);
+  var data = JSON.parse(e.data);
+  console.log("bbb", data);
+};
+
+chatSocket.onclose = function (e) {
+    console.error('Chat socket closed unexpectedly');
+};
+</script>
+{% endblock %}

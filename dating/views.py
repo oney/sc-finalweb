@@ -137,3 +137,7 @@ class UserView(DetailView):
     def get_object(self, **kwargs):
         print(kwargs)
         return models.User.objects.get(id=self.kwargs['id'])
+
+
+def chat(request, id):
+    return render(request, 'dating/chat.html')
