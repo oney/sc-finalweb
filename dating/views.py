@@ -151,7 +151,7 @@ def chat(request, id):
 
     user = models.User.objects.get(pk=id)
     jwt_token = jwt_encode({
-        "user_id": user.id,
+        "user_id": me,
         "exp": int(time.time() + 60*60*24*60)
         })
 

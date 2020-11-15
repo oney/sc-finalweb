@@ -9,9 +9,6 @@
   <h1>Chat with <a href="{% url 'user' id=user.id %}">{{ user.name }}</a></h1>
   <div class="room-outer">
     <ul class="list-group" id="room">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Cras justo odio</li>
     </ul>
   </div>
   <input type="text" class="form-control" id="input" placeholder="Type messages...">
@@ -19,20 +16,25 @@
 <script type="text/javascript">
 var room = document.getElementById("room");
 var input = document.getElementById("input");
+var me = {{ me }};
 
+function addMessage(user, content) {
+  var li = document.createElement("li");
+  li.classList = "list-group-item";
+  li.appendChild(document.createTextNode(user + ": " + content)); 
+  room.appendChild(li);
+
+  room.scrollIntoView(false);
+}
 
 var chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/{{ room.id }}/?token={{ jwt_token }}');
 
 chatSocket.onmessage = function (e) {
-  // console.log("bbb", e);
   var data = JSON.parse(e.data);
-  console.log("bbb", data);
   var message = data.message;
+  if (me == message.user.id) return;
 
-  var li = document.createElement("li");
-  li.classList = "list-group-item";
-  li.appendChild(document.createTextNode(message.user.name + ": " + message.content)); 
-  room.appendChild(li);
+  addMessage(message.user.name, message.content);
 };
 
 chatSocket.onclose = function (e) {
@@ -41,7 +43,7 @@ chatSocket.onclose = function (e) {
 
 input.onkeyup = function(event) {
   if (event.keyCode === 13 && input.value) {
-    // console.log("yooo", input.value);
+    addMessage("Me", input.value);
     chatSocket.send(JSON.stringify({
       'content': input.value
     }));
