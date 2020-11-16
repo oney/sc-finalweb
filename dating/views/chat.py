@@ -10,13 +10,11 @@ def chat(request, id):
     if not request.session.get('is_login', None):
         return redirect("/")
     me = models.User.objects.get(pk=request.session['user_id'])
-    if not me.email_verified:
-        return render(request, 'dating/cant_chat.html', locals())
-
     user = models.User.objects.get(pk=id)
     if me.id == user.id:
         return redirect("/discover")
-
+    if not me.email_verified:
+        return render(request, 'dating/cant_chat.html', locals())
     jwt_token = jwt_encode({
         "user_id": me.id,
         "exp": int(time.time() + 60*60*24*60)
@@ -29,5 +27,4 @@ def chat(request, id):
         room = models.Room.objects.create(user1=me, user2=user)
     
     messages = room.message_set.all().prefetch_related('user')
-
     return render(request, 'dating/chat.html', locals())

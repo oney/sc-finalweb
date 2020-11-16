@@ -2,14 +2,27 @@ var room = document.getElementById("room");
 var input = document.getElementById("input");
 room.scrollIntoView(false);
 
+var timeEls = document.querySelectorAll('time');
+if (timeEls.length) 
+  timeago.render(timeEls);
+
 function addMessage(content, user) {
   var li = document.createElement("li");
   li.classList = "list-group-item " + (user === undefined ? "me" : "other");
 
-  li.appendChild(document.createTextNode(
+  var ctnt = document.createElement("div");
+  ctnt.classList = "content";
+
+  ctnt.appendChild(document.createTextNode(
     (user ? user + ":\n" : "") + content
-  )); 
+  ));
+  li.appendChild(ctnt);
+
+  var createdAt = document.createElement("small");
+  createdAt.innerHTML = `<time datetime="${new Date().toISOString()}"></time>`;
+  li.appendChild(createdAt);
   room.appendChild(li);
+  timeago.render(li.querySelectorAll('time'));
 
   room.scrollIntoView(false);
 }

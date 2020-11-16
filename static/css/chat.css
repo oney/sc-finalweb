@@ -8,11 +8,11 @@
 }
 
 .room-outer {
-  height: calc(100vh - 210px);
+  height: calc(100vh - 220px);
   overflow-y: scroll;
   margin-bottom: 20px;
 }
 
-#room .list-group-item {
+.content {
   white-space: pre-wrap;
 }

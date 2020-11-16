@@ -25,7 +25,7 @@ SECRET_KEY = '7*ir7i&pk+h)e84(vbzm%oiznaj!t(mk8lxblai)bn#+p72or5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'happy-ladybug-27.loca.lt']
 
 
 # Application definition

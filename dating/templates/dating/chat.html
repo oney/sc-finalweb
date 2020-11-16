@@ -10,13 +10,19 @@
   <div class="room-outer">
     <ul class="list-group" id="room">
       {% for message in messages %}
-        <li class="list-group-item {% if message.user_id == request.session.user_id %}me{% else %}other{% endif %}">{% if message.user_id != request.session.user_id %}{{ message.user.name }}:
-{% endif %}{{ message.content }}</li>
+        <li class="list-group-item {% if message.user_id == request.session.user_id %}me{% else %}other{% endif %}">
+          <div class="content">{% if message.user_id != request.session.user_id %}{{ message.user.name }}:
+{% endif %}{{ message.content }}</div>
+          <small>
+            <time datetime="{{ message.created_at|date:'c' }}"></time>
+          </small>
+        </li>
       {% endfor %}
     </ul>
   </div>
   <textarea class="form-control" rows="2" id="input" placeholder="Type messages..."></textarea>
 </div>
+<script src="{% static 'js/timeago.full.min.js' %}"></script>
 <script type="text/javascript">
 var meId = {{ me.id }};
 var roomId = {{ room.id }}
