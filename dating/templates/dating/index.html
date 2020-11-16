@@ -5,10 +5,10 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 {% endblock %} {% block content %}
 <div class="container">
-  <div class="slogan">
+  <div class="card">
     <h1>Welcome</h1>
     <p>Join us to meet more friends!</p>
-    <div>
+    <div style="margin-top: 20px;">
       {% if request.session.is_login %}
         <a href="/discover/" class="btn btn-outline-primary">Discover</a>
       {% else %}
