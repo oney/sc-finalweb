@@ -16,3 +16,7 @@
 .content {
   white-space: pre-wrap;
 }
+
+time {
+  color: green;
+}

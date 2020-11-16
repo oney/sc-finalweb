@@ -5,6 +5,17 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 {% endblock %} {% block content %}
 <div class="container">
-  <h1>home</h1>
+  <div class="slogan">
+    <h1>Welcome</h1>
+    <p>Join us to meet more friends!</p>
+    <div>
+      {% if request.session.is_login %}
+        <a href="/discover/" class="btn btn-outline-primary">Discover</a>
+      {% else %}
+        <a href="/login/">Login</a> /
+        <a href="/register/">Register</a>
+      {% endif %}
+    </div>
+  </div>
 </div>
 {% endblock %}

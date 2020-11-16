@@ -1,10 +1,15 @@
+if (performance.navigation.type == 2) {
+  location.reload(true);
+}
+
 var room = document.getElementById("room");
 var input = document.getElementById("input");
-room.scrollIntoView(false);
 
 var timeEls = document.querySelectorAll('time');
 if (timeEls.length) 
   timeago.render(timeEls);
+
+room.scrollIntoView(false);
 
 function addMessage(content, user) {
   var li = document.createElement("li");
@@ -55,13 +60,13 @@ function connect() {
 connect();
 
 input.onkeyup = function(event) {
-  if (ws.readyState != 1) {
-    alert("Connecting to chat server...\nTry later");
-    return;
-  }
-
   var content = input.value.trim();
   if (event.keyCode === 13 && !event.shiftKey && content) {
+    if (ws.readyState != 1) {
+      alert("Connecting to chat server...\nTry later");
+      return;
+    }
+    
     addMessage(content);
     ws.send(JSON.stringify({
       'content': content
