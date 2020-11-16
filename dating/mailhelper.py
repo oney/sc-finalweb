@@ -4,8 +4,13 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
+sendcount = 0
 
 def sendmail(receiver, subject, text, html):
+    global sendcount
+    sendcount += 1
+    if sendcount > 20:
+        return
     # https://stackoverflow.com/a/48755417/2790103 turn on Less secure app access
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()

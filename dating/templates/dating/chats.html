@@ -15,25 +15,23 @@
         <a href="{% url 'chat' id=room.user2.id %}">
           <li class="list-group-item chat">
             {{ room.user2.name }}
-            <span class="last-message">
-              <small>
-            Last message {{ room.updated_at|timesince }} ago
-          </small>
-            </span>
+            <small class="last-message">
+              {{ room.updated_at|timesince }} ago
+            </small>
           </li>
         </a>
       {% else %}
         <a href="{% url 'chat' id=room.user1.id %}">
           <li class="list-group-item chat">
             {{ room.user1.name }}
-            <span class="last-message">
-              <small>
-                Last message {{ room.updated_at|timesince }} ago
-              </small>
-            </span>
+            <small class="last-message">
+              {{ room.updated_at|timesince }} ago
+            </small>
           </li>
         </a>
       {% endif %}
+    {% empty %}
+      <li class="list-group-item">No chat</li>
     {% endfor %}
   </ul>
   

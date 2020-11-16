@@ -1,3 +1,12 @@
+.me {
+  background: lightcyan;
+  text-align: right;
+}
+
+.other {
+  background: lightgoldenrodyellow;
+}
+
 .room-outer {
   height: calc(100vh - 180px);
   overflow-y: scroll;
