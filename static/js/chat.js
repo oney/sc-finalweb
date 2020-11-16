@@ -6,7 +6,7 @@ var room = document.getElementById("room");
 var input = document.getElementById("input");
 
 var timeEls = document.querySelectorAll('time');
-if (timeEls.length) 
+if (timeEls.length)
   timeago.render(timeEls);
 
 room.scrollIntoView(false);
@@ -15,15 +15,16 @@ function addMessage(content, user) {
   var li = document.createElement("li");
   li.classList = "list-group-item " + (user === undefined ? "me" : "other");
 
-  var ctnt = document.createElement("div");
-  ctnt.classList = "content";
+  var contentEl = document.createElement("div");
+  contentEl.classList = "content";
 
-  ctnt.appendChild(document.createTextNode(
+  contentEl.appendChild(document.createTextNode(
     (user ? user + ":\n" : "") + content
   ));
-  li.appendChild(ctnt);
+  li.appendChild(contentEl);
 
   var createdAt = document.createElement("small");
+  createdAt.classList = "badge badge-secondary badge-pill";
   createdAt.innerHTML = `<time datetime="${new Date().toISOString()}"></time>`;
   li.appendChild(createdAt);
   room.appendChild(li);
@@ -60,8 +61,14 @@ function connect() {
 connect();
 
 input.onkeyup = function(event) {
+  if (event.keyCode === 13 && !event.shiftKey) {
+    chatsend()
+  }
+}
+
+function chatsend() {
   var content = input.value.trim();
-  if (event.keyCode === 13 && !event.shiftKey && content) {
+  if (content) {
     if (ws.readyState != 1) {
       alert("Connecting to chat server...\nTry later");
       return;
@@ -72,5 +79,6 @@ input.onkeyup = function(event) {
       'content': content
     }));
     input.value = "";
+    input.focus();
   }
 }

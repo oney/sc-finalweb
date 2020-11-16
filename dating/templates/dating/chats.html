@@ -12,22 +12,20 @@
   <ul class="list-group">
     {% for room in rooms %}
       {% if room.user1_id == request.session.user_id %}
-        <a href="{% url 'chat' id=room.user2.id %}">
-          <li class="list-group-item chat">
-            {{ room.user2.name }}
-            <small class="last-message">
-              {{ room.updated_at|timesince }} ago
-            </small>
-          </li>
+        <a href="{% url 'chat' id=room.user2.id %}"
+          class="list-group-item list-group-item-action chat">
+          {{ room.user2.name }}
+          <small class="badge badge-primary badge-pill">
+            {{ room.updated_at|timesince }} ago
+          </small>
         </a>
       {% else %}
-        <a href="{% url 'chat' id=room.user1.id %}">
-          <li class="list-group-item chat">
-            {{ room.user1.name }}
-            <small class="last-message">
-              {{ room.updated_at|timesince }} ago
-            </small>
-          </li>
+        <a href="{% url 'chat' id=room.user1.id %}"
+          class="list-group-item list-group-item-action chat">
+          {{ room.user1.name }}
+          <small class="badge badge-primary badge-pill">
+            {{ room.updated_at|timesince }} ago
+          </small>
         </a>
       {% endif %}
     {% empty %}

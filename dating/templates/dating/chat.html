@@ -13,14 +13,19 @@
         <li class="list-group-item {% if message.user_id == request.session.user_id %}me{% else %}other{% endif %}">
           <div class="content">{% if message.user_id != request.session.user_id %}{{ message.user.name }}:
 {% endif %}{{ message.content }}</div>
-          <small>
+          <small class="badge badge-secondary badge-pill">
             <time datetime="{{ message.created_at|date:'c' }}"></time>
           </small>
         </li>
       {% endfor %}
     </ul>
   </div>
-  <textarea class="form-control" rows="2" id="input" placeholder="Type messages..."></textarea>
+  <div style="display: flex;">
+    <span style="flex: 1; margin-right: 12px;">
+      <textarea class="form-control" rows="2" id="input" placeholder="Type messages..."></textarea>
+    </span>
+    <button type="submit" class="btn btn-primary btn-raised" onclick="chatsend()">Send</button>
+  </div>
 </div>
 <script src="{% static 'js/timeago.full.min.js' %}"></script>
 <script type="text/javascript">

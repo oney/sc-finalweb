@@ -13,10 +13,19 @@
   margin-bottom: 20px;
 }
 
+.list-group-item {
+  display: block;
+  border-bottom: lightgray 1px solid;
+}
+
+.list-group-item :first-child {
+  margin-right: 0;
+}
+
 .content {
   white-space: pre-wrap;
 }
 
-time {
-  color: green;
+.list-group-item small {
+  margin-top: 8px;
 }
