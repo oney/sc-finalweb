@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^logout/', views.logout),
     url(r'^verify_email$', views.verify_email),
     url(r'^edit/', views.edit),
+    url(r'^resent/', views.resent),
     url(r'^password/', views.password),
     url(r'^discover/', views.DiscoverView.as_view(), name='discover'),
     url(r'^chats/', views.ChatView.as_view(), name='chats'),

@@ -1,0 +1,12 @@
+{% extends 'dating/base.html' %}
+{% load static %}
+{% block title %}Chat with {{ user.name }}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>Chat with <a href="{% url 'user' id=user.id %}">{{ user.name }}</a></h1>
+  <p>You have to verify the email to chat with other users</p>
+</div>
+{% endblock %}

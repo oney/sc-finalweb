@@ -7,9 +7,8 @@
   <form action="/edit/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% if message %}
-        <div class="alert alert-warning">{{ message }}</div>
+      <div class="alert alert-warning">{{ message }}</div>
     {% endif %}
-
 
     <div class="form-group">
       {{ form.picture.label_tag }}
@@ -21,7 +20,14 @@
 
     <div class="form-group">
       <label for="id_name">Email:</label>
-      <p>{{ user.email }}</p>
+      <p>
+        {{ user.email }}
+        {% if user.email_verified %}
+          (Verified)
+        {% else %}
+        <a href="/resent">Resent</a>
+        {% endif %}
+      </p>
     </div>
 
     <div class="form-group">

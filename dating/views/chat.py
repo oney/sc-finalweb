@@ -10,6 +10,9 @@ def chat(request, id):
     if not request.session.get('is_login', None):
         return redirect("/")
     me = models.User.objects.get(pk=request.session['user_id'])
+    if not me.email_verified:
+        return render(request, 'dating/cant_chat.html', locals())
+
     user = models.User.objects.get(pk=id)
     if me.id == user.id:
         return redirect("/discover")

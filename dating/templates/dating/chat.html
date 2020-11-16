@@ -1,6 +1,6 @@
 {% extends 'dating/base.html' %}
 {% load static %}
-{% block title %}home{% endblock %}
+{% block title %}Chat with {{ user.name }}{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
 {% endblock %}

@@ -13,6 +13,9 @@ class Chatting(AsyncWebsocketConsumer):
         info = jwt_decode(q['token'][0])
 
         self.user = await sync_to_async(models.User.objects.get)(pk=info['user_id'])
+        if not self.user.email_verified:
+            await self.close()
+            return
         self.room_id = str(self.scope['url_route']['kwargs']['room'])
         self.room = "room" + self.room_id
 
