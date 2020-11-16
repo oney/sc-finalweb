@@ -1,0 +1,14 @@
+{% extends 'dating/base.html' %}
+{% load static %}
+{% block title %}User {{ user.name }}{% endblock %}
+{% block content %}
+<div class="container">
+  <p>
+    {% if success %}
+      Verify your email successfully!
+    {% else %}
+      Your token is invalid
+    {% endif %}
+  </p>
+</div>
+{% endblock %}

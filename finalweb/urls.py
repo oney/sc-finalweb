@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^login/', views.login),
     url(r'^register/', views.register),
     url(r'^logout/', views.logout),
+    url(r'^verify_email$', views.verify_email),
     url(r'^edit/', views.edit),
     url(r'^password/', views.password),
     url(r'^discover/', views.DiscoverView.as_view(), name='discover'),

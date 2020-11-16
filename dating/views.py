@@ -8,6 +8,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
 from .jwthelper import jwt_encode, jwt_decode
+from .mailhelper import sendmail
 
 
 def index(request):
@@ -39,6 +40,26 @@ def login(request):
     form = LoginForm()
     return render(request, 'dating/login.html', locals())
 
+def send_verify_email(user):
+
+    link = "http://127.0.0.1:8000/verify_email?token=%s" % (
+        jwt_encode({
+            "user_id": user.id,
+            "exp": int(time.time() + 60*60*24*60)
+        })
+    )
+    text = "Verify your email by opening %s" % link
+    html = """\
+    <html>
+    <head></head>
+    <body>
+        Verify your email by opening <a href="%s">this link</a>
+    </body>
+    </html>
+    """ % link
+    sendmail(user.email, "Verify email", text, html)
+
+
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -64,6 +85,8 @@ def register(request):
                 user.email = email
                 user.gender = gender
                 user.save()
+                send_verify_email(user)
+
                 return redirect('/login/')
         return render(request, 'dating/register.html', locals())
     form = RegisterForm()
@@ -74,6 +97,18 @@ def logout(request):
         return redirect("/")
     request.session.flush()
     return redirect('/')
+
+
+def verify_email(request):
+    try:
+        info = jwt_decode(request.GET.get('token'))
+        user = models.User.objects.get(pk=info['user_id'])
+        user.email_verified = True
+        user.save()
+        success = True
+    except:
+        success = False
+    return render(request, 'dating/verify_email.html', locals())
 
 
 def edit(request):

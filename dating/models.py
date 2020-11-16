@@ -24,6 +24,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     picture = UniqueImageField(upload_to='images', null=True)
     last_active = models.DateTimeField(auto_now_add=True, null=True)
+    email_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email
