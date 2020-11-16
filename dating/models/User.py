@@ -33,37 +33,3 @@ class User(models.Model):
         ordering = ['created_at']
         verbose_name = 'user'
         verbose_name_plural = 'users'
-
-
-class Room(models.Model):
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user1')
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user2')
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    messages_count = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return self.id
-
-    class Meta:
-        ordering = ['updated_at']
-        verbose_name = 'room'
-        verbose_name_plural = 'rooms'
-
-
-class Message(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.id
-
-    class Meta:
-        ordering = ['id']
-        verbose_name = 'message'
-        verbose_name_plural = 'messages'
