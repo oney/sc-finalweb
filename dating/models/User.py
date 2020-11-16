@@ -5,15 +5,15 @@ import uuid
 
 class UniqueImageField(models.ImageField):
     def generate_filename(self, instance, filename):
-        _, ext = os.path.splitext(filename) 
+        _, ext = os.path.splitext(filename)
         name = f'{uuid.uuid4().hex}{ext}'
         return super().generate_filename(instance, name)
 
 
 class User(models.Model):
     genders = (
-        ('male', 'male'),
-        ('female', 'female'),
+        ('male', 'Male'),
+        ('female', 'Female'),
     )
 
     name = models.CharField(max_length=100)

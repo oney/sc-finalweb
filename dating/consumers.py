@@ -3,7 +3,7 @@ import json
 from urllib.parse import parse_qs
 from asgiref.sync import sync_to_async
 from django.db.models import F
-from .jwthelper import jwt_encode, jwt_decode
+from .helpers import jwt_encode, jwt_decode
 from . import models
 
 

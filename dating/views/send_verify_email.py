@@ -2,8 +2,8 @@ import time
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .. import models
-from ..jwthelper import jwt_encode
-from ..mailhelper import sendmail
+from ..helpers import jwt_encode
+from ..helpers import sendmail
 
 
 def send_verify_email(user):

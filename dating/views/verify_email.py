@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .. import models
-from ..jwthelper import jwt_decode
+from ..helpers import jwt_decode
 
 
 def verify_email(request):

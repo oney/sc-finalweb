@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .. import models
 from django.db.models import Q
-from ..jwthelper import jwt_encode
+from ..helpers import jwt_encode
 
 
 def chat(request, id):
