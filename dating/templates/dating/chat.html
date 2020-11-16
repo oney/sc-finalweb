@@ -10,16 +10,12 @@
   <div class="room-outer">
     <ul class="list-group" id="room">
       {% for message in messages %}
-        <li class="list-group-item {% if message.user_id == request.session.user_id %}me{% else %}other{% endif %}">
-          {% if message.user_id != request.session.user_id %}
-            {{ message.user.name }}:
-          {% endif %}
-          {{ message.content }}
-        </li>
+        <li class="list-group-item {% if message.user_id == request.session.user_id %}me{% else %}other{% endif %}">{% if message.user_id != request.session.user_id %}{{ message.user.name }}:
+{% endif %}{{ message.content }}</li>
       {% endfor %}
     </ul>
   </div>
-  <input type="text" class="form-control" id="input" placeholder="Type messages...">
+  <textarea class="form-control" rows="2" id="input" placeholder="Type messages..."></textarea>
 </div>
 <script type="text/javascript">
 var meId = {{ me.id }};

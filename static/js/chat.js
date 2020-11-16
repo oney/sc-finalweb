@@ -5,7 +5,10 @@ room.scrollIntoView(false);
 function addMessage(content, user) {
   var li = document.createElement("li");
   li.classList = "list-group-item " + (user === undefined ? "me" : "other");
-  li.appendChild(document.createTextNode((user ? user + ": " : "") + content)); 
+
+  li.appendChild(document.createTextNode(
+    (user ? user + ":\n" : "") + content
+  )); 
   room.appendChild(li);
 
   room.scrollIntoView(false);
@@ -44,10 +47,11 @@ input.onkeyup = function(event) {
     return;
   }
 
-  if (event.keyCode === 13 && input.value) {
-    addMessage(input.value);
+  var content = input.value.trim();
+  if (event.keyCode === 13 && !event.shiftKey && content) {
+    addMessage(content);
     ws.send(JSON.stringify({
-      'content': input.value
+      'content': content
     }));
     input.value = "";
   }
