@@ -12,7 +12,7 @@ class Message(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id)
+        return "%d: %s" % (self.id, self.content)
 
     class Meta:
         ordering = ['id']

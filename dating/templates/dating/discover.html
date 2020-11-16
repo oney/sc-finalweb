@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-  <h1>Discover</h1>
+  <h1 style="margin-left: 16px;">Discover</h1>
   <div class="card-group">
     {% for user in users %}
       <div class="col-md-6 col-lg-4">
@@ -33,7 +33,7 @@
     {% endfor %}
   </div>
   
-  <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation example" style="margin-left: 16px;">
     <ul class="pagination">
       {% if page_obj.has_previous %}
       <li class="page-item">

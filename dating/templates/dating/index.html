@@ -1,13 +1,14 @@
 {% extends 'dating/base.html' %}
 {% load static %}
-{% block title %}home{% endblock %}
+{% block title %}Home{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <div class="container">
   <div class="card">
     <h1>Welcome</h1>
-    <p>Join us to meet more friends!</p>
+    <p>Join us to meet new friends!</p>
     <div style="margin-top: 20px;">
       {% if request.session.is_login %}
         <a href="/discover/" class="btn btn-outline-primary">Discover</a>

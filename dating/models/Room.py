@@ -11,7 +11,7 @@ class Room(models.Model):
     messages_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return str(self.id)
+        return "%d: <%d, %d>" % (self.id, self.user1_id, self.user2_id)
 
     class Meta:
         ordering = ['updated_at']
