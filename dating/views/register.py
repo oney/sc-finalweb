@@ -1,18 +1,15 @@
 import time
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import make_password
 from .. import models
-from ..forms import LoginForm, RegisterForm, EditForm, PasswordForm
-from django.views.generic import ListView
-from django.views.generic.detail import DetailView
+from ..forms import RegisterForm
 from django.db.models import Q
-from ..jwthelper import jwt_encode, jwt_decode
+from ..jwthelper import jwt_encode
 from ..mailhelper import sendmail
 
 
 def send_verify_email(user):
-
     link = "http://127.0.0.1:8000/verify_email?token=%s" % (
         jwt_encode({
             "user_id": user.id,
