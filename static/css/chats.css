@@ -1,0 +1,8 @@
+.chat {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.last-message {
+  color: gray;
+}

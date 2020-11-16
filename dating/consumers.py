@@ -2,6 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 from urllib.parse import parse_qs
 from asgiref.sync import sync_to_async
+from django.db.models import F
 from .jwthelper import jwt_encode, jwt_decode
 from . import models
 
@@ -34,6 +35,10 @@ class Chatting(AsyncWebsocketConsumer):
             room_id=self.room_id,
             user=self.user,
             content=data['content'])
+        
+        room = await sync_to_async(models.Room.objects.get)(pk=self.room_id)
+        room.messages_count = F('messages_count') + 1
+        await sync_to_async(room.save)()
 
         payload = {
             'message': {

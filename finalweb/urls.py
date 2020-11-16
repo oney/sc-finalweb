@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^edit/', views.edit),
     url(r'^password/', views.password),
     url(r'^discover/', views.DiscoverView.as_view(), name='discover'),
+    url(r'^chats/', views.ChatView.as_view(), name='chats'),
     path('user/<int:id>/', views.UserView.as_view(), name='user'),
     path('chat/<int:id>/', views.chat, name='chat'),
 ]
