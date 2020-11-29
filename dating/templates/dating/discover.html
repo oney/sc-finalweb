@@ -14,7 +14,7 @@
         <div class="card mb-4">
           <div class="square card-img-top">
             <a href="{% url 'user' id=user.id %}">
-            {% if user.picture %}
+            {% if user.picture and not user.picture_violated %}
               <img class="img-fluid square-inner" src="{{ user.picture.url }}"/>
             {% else %}
               <img class="img-fluid square-inner" src="//drgsearch.com/wp-content/uploads/2020/01/no-photo.png" alt="No picture">

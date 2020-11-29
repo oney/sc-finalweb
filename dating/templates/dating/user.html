@@ -9,7 +9,7 @@
   <h1>{{ user.name }} <a href="{% url 'chat' id=user.id %}" class="btn btn-primary">Chat</a></h1>
   <p>
 
-    {% if user.picture %}
+    {% if user.picture and not user.picture_violated %}
     <img style="width: 600px; max-width: 100%;" src="{{ user.picture.url }}"/>
   {% else %}
     <img style="width: 300px; max-width: 100%;" src="//drgsearch.com/wp-content/uploads/2020/01/no-photo.png" alt="No picture">

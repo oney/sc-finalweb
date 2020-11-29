@@ -9,11 +9,19 @@
     {% if message %}
       <div class="alert alert-warning">{{ message }}</div>
     {% endif %}
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        {{ form.errors }}
+      </div>
+    {% endif %}
 
     <div class="form-group">
       {{ form.picture.label_tag }}
       {% if user.picture %}
         <p><img src="{{ user.picture.url }}" style="width: 300px; max-width: 100%;" /></p>
+        {% if user.picture_violated %}
+        <p class="alert alert-danger">Your picture violates our terms of use. It won't show on your profile.</p>
+        {% endif %}
       {% endif %}
       {{ form.picture }}
     </div>

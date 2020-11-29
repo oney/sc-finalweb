@@ -22,9 +22,10 @@ class User(models.Model):
     gender = models.CharField(max_length=32, choices=genders, default='male')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    picture = UniqueImageField(upload_to='images', null=True)
+    picture = UniqueImageField(upload_to='images', null=True, blank=True)
     last_active = models.DateTimeField(auto_now_add=True, null=True)
     email_verified = models.BooleanField(default=False)
+    picture_violated = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email

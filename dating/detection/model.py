@@ -90,7 +90,7 @@ class EvaluateDataset(Dataset):
         return [image, 1]
 
 
-def evaluate(iterator):
+def predict(iterator):
     model.eval()
     with torch.no_grad():
         for (x, y) in iterator:
@@ -104,9 +104,9 @@ def evaluate(iterator):
             return y_prob, top_pred
 
 
-def evaluate_one(image):
+def predict_one(image):
     dataset = EvaluateDataset(image)
     split_data, _ = data.random_split(dataset, [1, 0])
     iterator = data.DataLoader(split_data, batch_size=1)
-    prob, pred = evaluate(iterator)
+    prob, pred = predict(iterator)
     return pred[0][0].item(), prob[0].numpy()
