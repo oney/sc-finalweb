@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7*ir7i&pk+h)e84(vbzm%oiznaj!t(mk8lxblai)bn#+p72or5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'happy-turkey-63.loca.lt']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -143,13 +143,14 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)], #需修改redis的地址
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
 
+# https://stackoverflow.com/questions/20337040/getting-error-while-sending-email-through-gmail-smtp-please-log-in-via-your-w
+# You might have to follow these steps to send mails via gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-  
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
