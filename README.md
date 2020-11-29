@@ -1,6 +1,6 @@
 ## Prerequisites
 * MySQL
-* python
+* Python 3
 * Redis
 
 ## Python packages
@@ -27,6 +27,7 @@ DATABASES = {
 ```
 * Create `dating` database:  `CREATE DATABASE dating CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
 * Download [PyTorch model](https://drive.google.com/file/d/15lI_gRRgeBRzDtjWBvMMkuQTkm1H3cHB/view?usp=sharing) to `dating/detection/best8519.pt`
+* Start Redis server
 
 ## Running
 * `python manage.py runserver`
