@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .. import models
 from ..forms import EditForm
-from .send_verify_email import send_verify_email
+from ..helpers import send_verify_email
 
 
 def resent(request):

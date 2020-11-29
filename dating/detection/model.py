@@ -71,7 +71,7 @@ model = model.to(device)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 model.load_state_dict(torch.load(
-    os.path.join(dir_path, 'best8519.pt'),
+    os.path.join(dir_path, 'best.pt'),
     map_location=device))
 
 

@@ -1,37 +1,39 @@
-
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import os
+import time
+from django.shortcuts import render,redirect
+from django.http import HttpResponse
+from django.core.mail import send_mail
+from ..helpers import jwt_encode
 
 
 sendcount = 0
 
-def sendmail(receiver, subject, text, html):
+def send_verify_email(user):
     global sendcount
     sendcount += 1
     if sendcount > 20:
         return
-    # https://stackoverflow.com/a/48755417/2790103 turn on Less secure app access
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
 
-    sender = "wanyang8610@gmail.com"
+    link = "http://3.80.189.46/verify_email?token=%s" % (
+        jwt_encode({
+            "user_id": user.id,
+            "exp": int(time.time() + 60*60*24*60)
+        })
+    )
+    text = "Verify your email by opening %s" % link
+    html = """\
+    <html>
+    <head></head>
+    <body>
+        Verify your email by opening <a href="%s">this link</a>
+    </body>
+    </html>
+    """ % link
 
-    server.login(sender, os.environ.get('email_password'))
-
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = subject
-    msg['From'] = sender
-    msg['To'] = receiver
-
-    part1 = MIMEText(text, 'plain')
-    part2 = MIMEText(html, 'html')
-
-    msg.attach(part1)
-    msg.attach(part2)
-
-    server.sendmail(sender, receiver, msg.as_string())
-    server.quit()
+    send_mail(
+        "Verify email",
+        text,
+        'wanyang8610@gmail.com',
+        [user.email],
+        html_message=html,
+        fail_silently=False,
+    )

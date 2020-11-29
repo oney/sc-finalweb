@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
 from .. import models
 from ..forms import RegisterForm
-from .send_verify_email import send_verify_email
+from ..helpers import send_verify_email
 
 
 def register(request):
