@@ -17,13 +17,17 @@ Install `pip  install Django mysqlclient Pillow python-resize-image channels cha
 ## Setup
 * Modify `finalweb/settings.py`
 ```python
-...
+# ...
 DATABASES = {
     'default': {
         'USER': '<user>',
         'PASSWORD': '<password>',
-        ...
+        # ...
 }
+# ...
+EMAIL_HOST_USER = '<gmail>'
+EMAIL_HOST_PASSWORD = '<password>'
+DEFAULT_FROM_EMAIL = '<gmail>'
 ```
 * Create `dating` database:  `CREATE DATABASE dating CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
 * Download [PyTorch model](https://drive.google.com/file/d/15lI_gRRgeBRzDtjWBvMMkuQTkm1H3cHB/view?usp=sharing) to `dating/detection/best.pt`
