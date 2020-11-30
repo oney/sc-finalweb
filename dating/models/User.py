@@ -4,13 +4,36 @@ import uuid
 
 
 class UniqueImageField(models.ImageField):
+    '''
+    Unique image field
+    '''
     def generate_filename(self, instance, filename):
+        '''
+        generate a unique file name
+
+        **Parameters**
+
+            instance: *<User>*
+                User model
+
+            filename: *str*
+                The original file name
+
+        **Returns**
+
+            filename: *str*
+                Unique file name
+
+        '''
         _, ext = os.path.splitext(filename)
-        name = f'{uuid.uuid4().hex}{ext}'
+        name = f'{uuid.uuid4().hex}{ext}'  # Unique random string
         return super().generate_filename(instance, name)
 
 
 class User(models.Model):
+    '''
+    User model
+    '''
     genders = (
         ('male', 'Male'),
         ('female', 'Female'),

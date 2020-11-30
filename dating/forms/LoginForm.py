@@ -3,6 +3,9 @@ from .. import models
 
 
 class LoginForm(forms.Form):
+    '''
+    The form for /login page
+    '''
     email = forms.CharField(
         label="Email",
         max_length=255,

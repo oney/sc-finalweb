@@ -3,6 +3,9 @@ from .. import models
 
 
 class EditForm(forms.ModelForm):
+    '''
+    The form for /edit page
+    '''
     picture = forms.ImageField(required=False)
 
     class Meta:

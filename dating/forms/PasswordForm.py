@@ -3,6 +3,9 @@ from .. import models
 
 
 class PasswordForm(forms.Form):
+    '''
+    The form for /password page
+    '''
     password = forms.CharField(
         label="Password",
         max_length=200,

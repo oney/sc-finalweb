@@ -3,6 +3,9 @@ from .. import models
 
 
 class RegisterForm(forms.Form):
+    '''
+    The form for /register page
+    '''
     genders = (
         ('male', 'Male'),
         ('female', 'Female'),

@@ -4,6 +4,9 @@ from .Room import Room
 
 
 class Message(models.Model):
+    '''
+    Message model
+    '''
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
