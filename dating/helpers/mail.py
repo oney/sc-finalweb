@@ -7,8 +7,19 @@ sendcount = 0
 
 
 def send_verify_email(user):
+    '''
+    Send verification email
+
+    **Parameters**
+
+        user: *dating.models.User.User*
+            The user
+
+    '''
     global sendcount
     sendcount += 1
+    # restrict sendcount within 20 to prevent attacks
+    # (this site is just for testing)
     if sendcount > 20:
         return
 

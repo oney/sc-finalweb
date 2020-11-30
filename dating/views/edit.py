@@ -16,10 +16,10 @@ def check_picture(form, user):
     **Parameters**
 
         form: *dating.forms.EditForm.EditForm*
-            The request
+            The form
 
         user: *dating.models.User.User*
-            The request
+            The user
 
     '''
     # If picture is not changed, no need to check
