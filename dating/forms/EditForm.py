@@ -4,6 +4,7 @@ from .. import models
 
 class EditForm(forms.ModelForm):
     picture = forms.ImageField(required=False)
+
     class Meta:
         model = models.User
         fields = ['picture', 'name', 'gender']

@@ -9,5 +9,5 @@ def detect(src):
         with Image.open(f) as image:
             cover = resizeimage.resize_cover(image, [128, 128])
             pix = np.array(cover.convert("RGB"))
-            pred, prob = predict_one(pix)
+            pred, _ = predict_one(pix)
             return pred == 0

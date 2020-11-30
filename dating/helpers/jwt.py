@@ -7,7 +7,8 @@ headers = {
     "typ": "JWT"
 }
 
-salt = "icfwwhxuylfjrbbhxtdsxhyrihgtcogfwyjdcamawvgcdkmzkrdcqawtqrzfqoypwrirkgsekrtgxsdqjnycxskpygeeqjzorexa"
+salt = "icfwwhxuylfjrbbhxtdsxhyrihgtcogfwyjdcamawvgcdkmzkrdcqawtqrzfqoypwri"
+
 
 def jwt_encode(payload):
     return jwt.encode(
@@ -15,6 +16,7 @@ def jwt_encode(payload):
         key=salt,
         algorithm='HS256',
         headers=headers).decode('utf-8')
+
 
 def jwt_decode(token):
     return jwt.decode(token, salt, True, algorithm='HS256')

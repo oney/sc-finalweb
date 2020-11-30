@@ -1,11 +1,10 @@
 import time
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
 from django.core.mail import send_mail
 from ..helpers import jwt_encode
 
 
 sendcount = 0
+
 
 def send_verify_email(user):
     global sendcount

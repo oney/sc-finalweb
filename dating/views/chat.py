@@ -1,5 +1,5 @@
 import time
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .. import models
 from django.db.models import Q
@@ -25,6 +25,6 @@ def chat(request, id):
             .get(Q(user1=me, user2=user) | Q(user2=me, user1=user))
     except models.Room.DoesNotExist:
         room = models.Room.objects.create(user1=me, user2=user)
-    
+
     messages = room.message_set.all().prefetch_related('user')
     return render(request, 'dating/chat.html', locals())

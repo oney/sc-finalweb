@@ -1,18 +1,12 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
-from torch.optim.lr_scheduler import _LRScheduler
 import torch.utils.data as data
-
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset, DataLoader
-
 import numpy as np
-
 import os
 import random
-import time
 
 
 SEED = 1234
@@ -27,30 +21,31 @@ torch.backends.cudnn.deterministic = True
 class AlexNet(nn.Module):
     def __init__(self, output_dim):
         super().__init__()
-        
+
         self.features = nn.Sequential(
-            nn.Conv2d(3, 64, 12, 4, 1), #in_channels, out_channels, kernel_size, stride, padding
-            nn.MaxPool2d(2), #kernel_size
-            nn.ReLU(inplace = True),
-            nn.Conv2d(64, 192, 3, padding = 1),
+            nn.Conv2d(3, 64, 12, 4, 1),
+            # in_channels, out_channels, kernel_size, stride, padding
+            nn.MaxPool2d(2),  # kernel_size
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 192, 3, padding=1),
             nn.MaxPool2d(2),
-            nn.ReLU(inplace = True),
+            nn.ReLU(inplace=True),
             # nn.Conv2d(192, 384, 3, padding = 1),
             # nn.ReLU(inplace = True),
             # nn.Conv2d(192, 256, 3, padding = 1),
             # nn.ReLU(inplace = True),
-            nn.Conv2d(192, 256, 3, padding = 1),
+            nn.Conv2d(192, 256, 3, padding=1),
             nn.MaxPool2d(2),
-            nn.ReLU(inplace = True)
+            nn.ReLU(inplace=True)
         )
-        
+
         self.classifier = nn.Sequential(
             nn.Dropout(0.5),
             nn.Linear(256 * 3 * 3, 4096),
-            nn.ReLU(inplace = True),
+            nn.ReLU(inplace=True),
             nn.Dropout(0.5),
             nn.Linear(4096, 4096),
-            nn.ReLU(inplace = True),
+            nn.ReLU(inplace=True),
             nn.Linear(4096, output_dim),
         )
 
@@ -61,15 +56,10 @@ class AlexNet(nn.Module):
         return x, h
 
 
-OUTPUT_DIM = 2
-
 model = AlexNet(2)
-
 device = torch.device('cpu')
 model = model.to(device)
-
 dir_path = os.path.dirname(os.path.realpath(__file__))
-
 model.load_state_dict(torch.load(
     os.path.join(dir_path, 'best.pt'),
     map_location=device))
@@ -98,8 +88,8 @@ def predict(iterator):
 
             y_pred, _ = model(x)
 
-            y_prob = F.softmax(y_pred, dim = -1)
-            top_pred = y_prob.argmax(1, keepdim = True)
+            y_prob = F.softmax(y_pred, dim=-1)
+            top_pred = y_prob.argmax(1, keepdim=True)
 
             return y_prob, top_pred
 

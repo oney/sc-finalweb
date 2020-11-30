@@ -1,5 +1,5 @@
 import time
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .. import models
 from django.views.generic import ListView
@@ -20,5 +20,5 @@ class ChatView(ListView):
 
     def render_to_response(self, context):
         if not self.request.session.get('is_login', None):
-            return redirect("/")
+            return ("/")
         return super(ChatView, self).render_to_response(context)

@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from dating import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.index),
@@ -36,6 +37,5 @@ urlpatterns = [
     path('chat/<int:id>/', views.chat, name='chat'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)

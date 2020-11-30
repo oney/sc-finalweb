@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .. import models
 from ..helpers import jwt_decode
@@ -11,6 +11,6 @@ def verify_email(request):
         user.email_verified = True
         user.save()
         success = True
-    except:
+    except Exception:
         success = False
     return render(request, 'dating/verify_email.html', locals())

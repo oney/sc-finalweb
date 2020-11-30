@@ -7,7 +7,6 @@ class RegisterForm(forms.Form):
         ('male', 'Male'),
         ('female', 'Female'),
     )
-
     email = forms.CharField(
         label="Email",
         max_length=255,

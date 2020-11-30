@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.hashers import check_password
 from .. import models
@@ -24,7 +24,7 @@ def login(request):
                     return redirect('/')
                 else:
                     message = "Password is wrong"
-            except:
+            except Exception:
                 message = "User not found"
         return render(request, 'dating/login.html', locals())
 

@@ -1,5 +1,5 @@
 import time
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .. import models
 from django.views.generic import ListView
@@ -14,7 +14,8 @@ class DiscoverView(ListView):
 
     def get_queryset(self):
         user_id = self.request.session['user_id']
-        return models.User.objects.filter(~Q(id=user_id)).order_by('-last_active')
+        return models.User.objects.filter(~Q(id=user_id))\
+            .order_by('-last_active')
 
     def render_to_response(self, context):
         if not self.request.session.get('is_login', None):

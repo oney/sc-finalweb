@@ -11,8 +11,9 @@ class Chatting(AsyncWebsocketConsumer):
     async def connect(self):
         q = parse_qs(self.scope['query_string'].decode())
         info = jwt_decode(q['token'][0])
+        user_id = info['user_id']
 
-        self.user = await sync_to_async(models.User.objects.get)(pk=info['user_id'])
+        self.user = await sync_to_async(models.User.objects.get)(pk=user_id)
         if not self.user.email_verified:
             await self.close()
             return
@@ -38,7 +39,7 @@ class Chatting(AsyncWebsocketConsumer):
             room_id=self.room_id,
             user=self.user,
             content=data['content'])
-        
+
         room = await sync_to_async(models.Room.objects.get)(pk=self.room_id)
         room.messages_count = F('messages_count') + 1
         await sync_to_async(room.save)()
