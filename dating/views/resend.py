@@ -6,9 +6,9 @@ from ..forms import EditForm
 from ..helpers import send_verify_email
 
 
-def resent(request):
+def resend(request):
     '''
-    /resent page handler
+    /resend page handler
 
     **Parameters**
 
@@ -26,5 +26,9 @@ def resent(request):
         return redirect("/")
 
     user = models.User.objects.get(pk=request.session['user_id'])
-    send_verify_email(user)  # send verification email
-    return redirect('/edit/')
+    try:
+        send_verify_email(user)  # send verification email
+        message = "Succeeded to resend verification email"
+    except Exception:
+        message = "Failed to resend verification email"
+    return render(request, 'dating/resend.html', locals())

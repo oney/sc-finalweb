@@ -6,7 +6,7 @@ from .register import *
 from .logout import *
 from .verify_email import *
 from .edit import *
-from .resent import *
+from .resend import *
 from .password import *
 from .chat import *
 from .DiscoverView import *

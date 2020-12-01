@@ -53,7 +53,12 @@ def register(request):
                 user.email = email
                 user.gender = gender
                 user.save()
-                send_verify_email(user)  # send verification email
+
+                try:
+                    send_verify_email(user)  # send verification email
+                except Exception:
+                    # If sending email failed, the user can resend it
+                    pass
 
                 return redirect('/login/')
         return render(request, 'dating/register.html', locals())
