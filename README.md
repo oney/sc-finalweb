@@ -1,6 +1,12 @@
+# Project
+The project implements the following features:
+* Register/login with email verification
+* Real-time text chatrooms
+* Machine learning-based inappropriate image removal detection
+
 ## Prerequisites
-* MySQL
 * Python 3
+* MySQL
 * Redis
 
 ## Python packages
@@ -36,6 +42,9 @@ DEFAULT_FROM_EMAIL = '<gmail>'
 
 ## Running
 * `python manage.py runserver`
+
+## Unit tests
+`./manage.py test` to run the test in `dating/tests.py`
 
 ## Error handling
 * The website properly handles user errors such as wrong inputs by showing information on web pages.
