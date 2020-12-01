@@ -1,7 +1,7 @@
 # Project
-The project implements the following features:
+The project is a dating website which implements the following features:
 * Register/login with email verification
-* Real-time text chatrooms
+* Real-time websocket text chatrooms
 * Machine learning-based inappropriate image removal detection
 
 ## Prerequisites
