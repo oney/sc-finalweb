@@ -31,12 +31,15 @@ DEFAULT_FROM_EMAIL = '<gmail>'
 ```
 * Create `dating` database:  `CREATE DATABASE dating CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
 * Run migrations: `python manage.py migrate`
-* Download [PyTorch model](https://drive.google.com/file/d/15lI_gRRgeBRzDtjWBvMMkuQTkm1H3cHB/view?usp=sharing) to `dating/detection/best.pt`
-* The model above was trained from [here](https://colab.research.google.com/drive/1iBQ9F7YlLBoWaNjH7tkpPIyHbZyRRMTD?usp=sharing)
+* Download [PyTorch model](https://drive.google.com/file/d/15lI_gRRgeBRzDtjWBvMMkuQTkm1H3cHB/view?usp=sharing) to `dating/detection/best.pt`. The model was trained [here](https://colab.research.google.com/drive/1iBQ9F7YlLBoWaNjH7tkpPIyHbZyRRMTD?usp=sharing).
 * Start Redis server
 
 ## Running
 * `python manage.py runserver`
+
+## Error handling
+* The website properly handles user errors such as wrong inputs by showing information on web pages.
+* It doesn't consider developer errors like wrong setup or deployment.
 
 ## Citations
 * [AlexNet](https://colab.research.google.com/github/bentrevett/pytorch-image-classification/blob/master/3_alexnet.ipynb)
