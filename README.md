@@ -30,6 +30,7 @@ EMAIL_HOST_PASSWORD = '<password>'
 DEFAULT_FROM_EMAIL = '<gmail>'
 ```
 * Create `dating` database:  `CREATE DATABASE dating CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
+* Run migrations: `python manage.py migrate`
 * Download [PyTorch model](https://drive.google.com/file/d/15lI_gRRgeBRzDtjWBvMMkuQTkm1H3cHB/view?usp=sharing) to `dating/detection/best.pt`
 * The model above was trained from [here](https://colab.research.google.com/drive/1iBQ9F7YlLBoWaNjH7tkpPIyHbZyRRMTD?usp=sharing)
 * Start Redis server
@@ -37,3 +38,7 @@ DEFAULT_FROM_EMAIL = '<gmail>'
 ## Running
 * `python manage.py runserver`
 
+## Citations
+* [AlexNet](https://colab.research.google.com/github/bentrevett/pytorch-image-classification/blob/master/3_alexnet.ipynb)
+* [Django register/login](https://www.cnblogs.com/derek1184405959/p/8567522.html)
+* [Django real-time messaging](https://zhuanlan.zhihu.com/p/91642958)
