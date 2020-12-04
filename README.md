@@ -4,6 +4,9 @@ The project is a dating website which implements the following features:
 * Real-time websocket text chatrooms
 * Machine learning-based inappropriate image removal detection
 
+## Demo website
+http://3.80.189.46/
+
 ## Prerequisites
 * Python 3
 * MySQL
